@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Fade, Fade as SlideShow, SlideshowProps } from "react-slideshow-image";
+import { Fade, Fade as SlideShow } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import "./App.css";
 import { BackgroundLights } from "./components/BackgroundLights";
