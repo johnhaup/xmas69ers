@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { Fade, Fade as SlideShow } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import "./App.css";
+import { AudioPlayer } from "./components/AudioPlayer";
 import { BackgroundLights } from "./components/BackgroundLights";
 import { SlideImage } from "./components/SlideImage";
 
@@ -40,9 +41,15 @@ function App() {
       }}
     >
       <BackgroundLights />
-      <SlideShow ref={slideShowRef} arrows={false} autoplay={true}>
+      <SlideShow
+        ref={slideShowRef}
+        arrows={false}
+        autoplay={true}
+        pauseOnHover={false}
+      >
         {images.map(renderSlideImage)}
       </SlideShow>
+      <AudioPlayer />
     </div>
   );
 }
