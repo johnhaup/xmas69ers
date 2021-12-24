@@ -4,17 +4,20 @@ import "react-slideshow-image/dist/styles.css";
 import "./App.css";
 import { AudioPlayer } from "./components/AudioPlayer";
 import { BackgroundLights } from "./components/BackgroundLights";
+import { IntroSlide } from "./components/IntroSlide";
 import { SlideImage } from "./components/SlideImage";
 import { Snowfall } from "./components/Snowfall";
+import shuffle from "just-shuffle";
 
 function importAll(r: any) {
   return r.keys().map(r);
 }
 
-const images = importAll(
+const images: string[] = importAll(
   // @ts-ignore
   require.context("./images/69ers", false, /\.(png|jpe?g|svg)$/)
 );
+const shuffledImages = shuffle(images);
 
 function App() {
   const slideShowRef = useRef<Fade>(null);
@@ -49,7 +52,8 @@ function App() {
         autoplay={true}
         pauseOnHover={false}
       >
-        {images.map(renderSlideImage)}
+        <IntroSlide onClick={advanceSlide} />
+        {shuffledImages.map(renderSlideImage)}
       </SlideShow>
       <AudioPlayer />
     </div>
