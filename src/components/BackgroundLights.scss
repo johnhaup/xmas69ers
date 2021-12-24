@@ -1,0 +1,103 @@
+/* Font */
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+/* Colors */
+$colorCollection: (
+  #d00010,
+  #fec641,
+  #63c13b,
+  #fe0016,
+  #5c6c94,
+  #6b0d05,
+  #7d0006,
+  #db1913,
+  #fee34a,
+  #2f8a27
+);
+// $colorCollection: (#F4A43B, #0AB1AA, #FDFEE4, #F42618, #ADFEDD, #FF5F24, #FEF14F, #FD361B, #30398D, #FEE086);
+// $colorCollection: (#FCF1BD);
+
+/* Config */
+$lights: 150; // match lights in mark up
+$textColor: #ffffff;
+$totalAnimation: 5;
+$lightSize: 75;
+$blurLevel: 2;
+
+/* Pretty Lights */
+.bokeh {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  top: -50px;
+  left: -25px;
+}
+
+.light {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+@for $i from 1 through $lights {
+  $lightWidth: $lightSize + random(25);
+  $lightHeight: $lightWidth;
+  $lightVertical: random(100);
+  $lightHorizontal: random(100);
+  $lightBlur: $blurLevel + random($blurLevel);
+  $lightDelay: 10 + random(25);
+  $animation: 1 + random($totalAnimation);
+
+  .light:nth-child(#{$i}) {
+    width: $lightWidth + px;
+    height: $lightHeight + px;
+    top: #{$lightVertical + "%"};
+    left: #{$lightHorizontal + "%"};
+    background: nth($colorCollection, random(length($colorCollection)));
+    filter: blur($lightBlur + px);
+    animation: #{$lightDelay + s} #{"light" + $animation} linear infinite;
+  }
+}
+
+@for $i from 1 through $totalAnimation {
+  @keyframes light#{$i} {
+    25% {
+      opacity: (25 + random(50)) * 0.01;
+    }
+    50% {
+      opacity: 0;
+    }
+    75% {
+      opacity: (25 + random(50)) * 0.01;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}
+
+/* Other Stuff */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Montserrat", sans-serif;
+  background-image: linear-gradient(#0a0707 0%, #110c0d 50%, #0c090a 100%);
+}
+
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0px 0px 50px rgba($textColor, 0.5);
+  color: $textColor;
+  position: absolute;
+  top: 25%;
+  z-index: 10;
+  opacity: 0.9;
+  left: 0%;
+  right: 0%;
+}
