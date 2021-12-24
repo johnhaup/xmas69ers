@@ -11,14 +11,36 @@ export const SlideImage = ({
 }) => {
   const window = useWindowDimensions();
   const [windowIsPortrait, setWindowIsPortrait] = useState(false);
+  const [landscapeLayout, setLandscapeLayout] = useState<{
+    width?: string | number;
+    height?: string | number;
+  }>({
+    width: 0,
+    height: 0,
+  });
   const [isPortrait, setIsPortrait] = useState(true);
   const imageRef = useRef<HTMLImageElement | null>(null);
 
   const onLoad = () => {
-    setIsPortrait(
+    const imageMeasuredPortrait =
       (imageRef.current?.clientHeight || 0) >=
-        (imageRef.current?.clientWidth || 0)
-    );
+      (imageRef.current?.clientWidth || 0);
+    if (imageMeasuredPortrait !== isPortrait) {
+      setIsPortrait(imageMeasuredPortrait);
+    }
+
+    if (!imageMeasuredPortrait) {
+      const height = window.height * 0.96;
+      const width =
+        ((imageRef.current?.clientWidth || 0) /
+          (imageRef.current?.clientHeight || 0)) *
+        height;
+      if (width >= window.width) {
+        setLandscapeLayout({ width: "96%" });
+      } else {
+        setLandscapeLayout({ height, width });
+      }
+    }
   };
 
   useEffect(() => {
@@ -26,15 +48,10 @@ export const SlideImage = ({
   }, [window.width, window.height]);
 
   const imageStyle =
-    isPortrait && !windowIsPortrait
-      ? { height: "96%" }
-      : { width: window.width };
-
-  console.log(window.width, window.height);
+    isPortrait && !windowIsPortrait ? { height: "96%" } : landscapeLayout;
 
   return (
     <div
-      onClick={onClick}
       className="each-fade"
       style={{
         alignItems: "center",
@@ -44,22 +61,14 @@ export const SlideImage = ({
         width: window.width,
       }}
     >
-      {/* <div
-        style={{
-          display: "flex",
-          
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      > */}
       <img
+        onClick={onClick}
         ref={imageRef}
         src={image}
         style={imageStyle}
         onLoad={onLoad}
         alt={"slide"}
       />
-      {/* </div> */}
     </div>
   );
 };
