@@ -5,6 +5,7 @@ import "./App.css";
 import { AudioPlayer } from "./components/AudioPlayer";
 import { BackgroundLights } from "./components/BackgroundLights";
 import { SlideImage } from "./components/SlideImage";
+import { Snowfall } from "./components/Snowfall";
 
 function importAll(r: any) {
   return r.keys().map(r);
@@ -41,6 +42,7 @@ function App() {
       }}
     >
       <BackgroundLights />
+      <Snowfall />
       <SlideShow
         ref={slideShowRef}
         arrows={false}
