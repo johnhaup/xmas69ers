@@ -1,7 +1,6 @@
 import React from "react";
 import "react-slideshow-image/dist/styles.css";
 import useWindowDimensions from "../hooks/useWindowDimensions";
-import "./IntroSlide.css";
 
 export const IntroSlide = ({ onClick }: { onClick?: () => void }) => {
   const window = useWindowDimensions();
@@ -15,6 +14,7 @@ export const IntroSlide = ({ onClick }: { onClick?: () => void }) => {
         display: "flex",
         height: window.height,
         width: window.width,
+        flexDirection: "column",
       }}
     >
       <div
@@ -29,7 +29,6 @@ export const IntroSlide = ({ onClick }: { onClick?: () => void }) => {
         }}
       />
       <p
-        className="intro"
         style={{
           color: "#fff",
           fontFamily: "Waterfall",
@@ -39,6 +38,16 @@ export const IntroSlide = ({ onClick }: { onClick?: () => void }) => {
         }}
       >
         Merry Christmas and a Happy New Year to all the 69ers!
+      </p>
+      <p
+        style={{
+          color: "#fff",
+          fontFamily: "Waterfall",
+          fontSize: "48pt",
+          paddingTop: 8,
+        }}
+      >
+        Press F to go full screen!
       </p>
     </div>
   );
