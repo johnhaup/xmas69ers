@@ -20,7 +20,7 @@ export const AudioPlayer = () => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        opacity: hovered ? 1 : 0.3,
+        opacity: hovered ? 1 : 0.2,
         zIndex: 999,
         position: "absolute",
         bottom: 24,
